@@ -32,7 +32,7 @@ class ViewController: UIViewController {
     @IBAction func btnHuman(_ sender: UIButton) {
         imageView.image = UIImage(imageLiteralResourceName: "Human Headhuman")
         
-        text.text = "I`m Peter Parker"
+        text.text = "I`m NICOLAS NAGANO"
         text.textColor = UIColor(named: "red")
         
 
