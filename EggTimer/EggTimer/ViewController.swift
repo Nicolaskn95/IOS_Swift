@@ -7,9 +7,19 @@
 //
 
 import UIKit
+import Foundation
 
 class ViewController: UIViewController {
     
-
-
+    @IBAction func btnSoft(_ sender: UIButton) {
+        print(sender.titleLabel?.text as Any)
+    }
+    
+    @IBAction func btnMedium(_ sender: UIButton) {
+        print(sender.titleLabel?.text as Any)
+    }
+    @IBAction func btnHard(_ sender: UIButton) {
+        print(sender.titleLabel?.text as Any)
+    }
+    
 }
