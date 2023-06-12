@@ -21,8 +21,40 @@ struct QuizBrain{
         Question(q: "Buzz Aldrin's mother's maiden name was 'Moon'.", a: "True"),
         Question(q: "The loudest sound produced by any animal is 188 decibels. That animal is the African Elephant.", a: "False"),
         Question(q: "No piece of square dry paper can be folded in half more than 7 times.", a: "False"),
-        Question(q: "Chocolate affects a dog's heart and nervous system; a few ounces are enough to kill a small dog.", a: "True")
-                 ]
+        Question(q: "Chocolate affects a dog's heart and nervous system; a few ounces are enough to kill a small dog.", a: "True"),
+    ]
     
-        var questionNumber = 0
-}
+    var questionNumber = 0
+    var score = 0
+    
+   mutating func checkAnswer(_ userAnswer: String) -> Bool {
+        if(userAnswer == quiz[questionNumber].answer){
+            score += 1
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func getQustionText() -> String{
+        return quiz[questionNumber].text
+    }
+    
+    func getProgress() -> Float{
+        let progress = Float(questionNumber) / Float(quiz.count - 1)
+        return progress
+    }
+    
+    mutating func nextQuestion(){
+        if (questionNumber + 1 < quiz.count){
+            questionNumber += 1
+        } else{
+            score = 0
+            questionNumber = 0
+        }
+    }
+    
+    func getScore() -> Int{
+            return score
+        }
+    }
