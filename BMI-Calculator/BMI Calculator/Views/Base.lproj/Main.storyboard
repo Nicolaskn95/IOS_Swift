@@ -208,6 +208,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="background" destination="r83-N3-Ash" id="9xm-Im-6QV"/>
                         <outlet property="lblResult" destination="VU9-2W-Sd5" id="Q6c-aG-YHu"/>
                         <outlet property="lblResultText" destination="9IV-CT-mxw" id="aib-RH-wca"/>
                     </connections>
