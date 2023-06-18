@@ -9,4 +9,4 @@ in the IDE Xcode made to develop technologies for iOS.
 - Alignment and Pinning
 - Containers and Subviews
 - Stack Views
-* Continue...
+* Continue..
