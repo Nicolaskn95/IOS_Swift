@@ -18,11 +18,13 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
     @IBOutlet weak var weatherImage: UIImageView!
     
     
-    var weatherManager = WeatherManager()    
+    var weatherManager = WeatherManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        weatherManager.delegate = self
+        
         searchTextField.delegate = self
     }
     
@@ -58,8 +60,12 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
     }
     
     
-    func didUpdateWeather(weather: Weather) {
-        print(weather)
+    func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
+        temperatureLabel.text = weather.temperatureString
+    }
+    
+    func didFailWithError(error: Error) {
+        print(error)
     }
 }
 
