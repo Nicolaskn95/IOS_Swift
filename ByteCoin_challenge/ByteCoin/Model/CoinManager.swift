@@ -1,12 +1,10 @@
-//
-//  CoinManager.swift
-//  ByteCoin
-//
-//  Created by Angela Yu on 11/09/2019.
-//  Copyright © 2019 The App Brewery. All rights reserved.
-//
-
 import Foundation
+
+protocol CoinManagerDelegate {
+    func didUpdatePriceCoin(_ price: String, currency: String)
+    func didFailWithError(error: Error)
+}
+
 
 struct CoinManager {
     
@@ -15,6 +13,9 @@ struct CoinManager {
     var currencyCoin = ""
     
     let currencyArray = ["AUD", "BRL","CAD","CNY","EUR","GBP","HKD","IDR","ILS","INR","JPY","MXN","NOK","NZD","PLN","RON","RUB","SEK","SGD","USD","ZAR"]
+    
+    
+    var delegate: CoinManagerDelegate?
     
     func fetchPriceCoin(){
         let urlString = "\(baseURL)/\(currencyCoin)?apikey=\(apiKey)"
@@ -30,13 +31,13 @@ struct CoinManager {
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: url) { (data, response, error) in
                 if error != nil {
-                    //                self.delegate?.didFailWithError(error: error!)
+                    self.delegate?.didFailWithError(error: error!)
                     print(error ?? "value nil")
                 }
                 if let safeData = data {
                     let price = self.parseJSON(safeData)
-//                    let price = String(data: data!, encoding: .utf8)
-                    print(price ?? "")
+                    let priceString = String(format: "%.2f", price!)
+                    self.delegate?.didUpdatePriceCoin(priceString, currency: currencyCoin)
                 }
             }
             task.resume()
@@ -48,11 +49,10 @@ struct CoinManager {
         do {
             let decodedData = try decoder.decode(CoinData.self, from: data)
             let lastPrice = decodedData.rate
-
-            return round(lastPrice * 100)/100.0
+            return lastPrice
+            
         } catch {
-//            delegate?.didFailWithError(self, error; error)
-            print (error)
+            delegate?.didFailWithError(error: error)
             return nil
         }
     }
