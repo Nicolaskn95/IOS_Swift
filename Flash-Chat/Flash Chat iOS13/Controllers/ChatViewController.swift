@@ -1,10 +1,13 @@
 import UIKit
 import Firebase
+import FirebaseFirestore
 
 class ChatViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var messageTextfield: UITextField!
+    
+    let db = Firestore.firestore()
     
     var messages: [Message] = [
         Message(sender: "nicolasjap@hotmail.com", body: "Hey!"),
@@ -21,9 +24,31 @@ class ChatViewController: UIViewController {
         navigationItem.hidesBackButton = true
 
         tableView.register(UINib(nibName: K.cellNibName, bundle: nil), forCellReuseIdentifier: K.cellIdentifier)
+        
+        loadMessages()
+    }
+    
+    func loadMessages() {
+        messages = []
+        
+        db.collection(K.FStore.collectionName).getDocuments(completion: <#T##(QuerySnapshot?, Error?) -> Void#>)
     }
     
     @IBAction func sendPressed(_ sender: UIButton) {
+        
+        if let messageBody = messageTextfield.text, let messageSender = Auth.auth().currentUser?.email {
+            db.collection(K.FStore.collectionName).addDocument(data: [
+                K.FStore.senderField: messageSender,
+                K.FStore.bodyField: messageBody
+            ]) { (error) in
+                if let e = error {
+                    print("There was an issue saving data to firestore \(e)")
+                } else {
+                    print("Successfully save data")
+                }
+                
+            }
+        }
     }
     @IBAction func logoutPressed(_ sender: UIBarButtonItem) {
         do {
