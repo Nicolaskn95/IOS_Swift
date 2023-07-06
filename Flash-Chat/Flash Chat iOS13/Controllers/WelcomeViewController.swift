@@ -7,26 +7,36 @@
 //
 
 import UIKit
-import CLTypingLabel
+//import CLTypingLabel
 
 class WelcomeViewController: UIViewController {
 
-    @IBOutlet weak var titleLabel: CLTypingLabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated) // its is a good practice to inheritance, but this line dont change anything on app
+        navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated) // its is a good practice to inheritance, but this line dont change anything on app
+        navigationController?.isNavigationBarHidden = false
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         titleLabel.text = K.appName
-//        titleLabel.text = ""
-//        var charIndex = 0
-//        let titleText = "⚡️FlashChat"
-//        for letter in titleText {
-//            Timer.scheduledTimer(withTimeInterval: 0.15 * Double(charIndex), repeats: false) { (timer) in
-//
-//                self.titleLabel.text?.append(letter)
-//            }
-//            charIndex += 1
-//        }
+        titleLabel.text = ""
+        var charIndex = 0
+        let titleText = "⚡️JapaChat"
+        for letter in titleText {
+            Timer.scheduledTimer(withTimeInterval: 0.1 * Double(charIndex), repeats: false) { (timer) in
+
+                self.titleLabel.text?.append(letter)
+            }
+            charIndex += 1
+        }
     }
     
 

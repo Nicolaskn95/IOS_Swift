@@ -18,6 +18,7 @@ class MessageCellTableViewCell: UITableViewCell {
     }
 
     @IBOutlet weak var rightImageView: UIImageView!
+    @IBOutlet weak var leftImageView: UIImageView!
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var messageBubble: UIView!
     override func setSelected(_ selected: Bool, animated: Bool) {
